@@ -202,15 +202,7 @@ treeHeight (B a b c) = 1 + max (treeHeight a) (treeHeight c)
 
 
 --5)
-{-- 
-completeLevel :: Tree -> Int -> Tree
-completeLevel t h
-            | h == 1 && t == (L a) = (L a)
-            | h > 1 && t == (U a b) = B ((completeLevel b (h-1)) (a) (completeLevel b (h-1)))
-            | h > 1 && t == (L a) = B ((completeLevel (L a) (h-1)) (a) (completeLevel (L a) (h-1)))
-            | h > 1 && t == (B a b c) = B ((completeLevel a (h-1)) (b) (completeLevel c (h-1)))
-            |otherwise = t
---}
+
 completeLevel :: Tree -> Int -> Tree
 completeLevel (L a) h 
                 | h == 1 = (L a)

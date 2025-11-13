@@ -239,6 +239,101 @@ treeHeight(completeLevel La 1) = treeHeight (L a)
 treeHeight (L a) = treeHeight (L a)
 1 = 1
 
-Caso inductivo: 
+Caso inductivo 1
+
+h- (∀b::Tree) treeHeight(completeLevel b (treeHeight b)) = treeHeight b
+
+t- treeHeight(completeLevel U a b (treeHeight U a b)) = treeHeight U a b
+
+
+->treeHeight (U a b) = 1 + treeHeight (b)
+
+treeHeight(completeLevel U a b (1 + treeHeight b)) = treeHeight U a b
+
+->completeLevel (U a b) (1 + treeHeight b) = B (completeLevel b ((1 + treeHeight b)-1)) (a) (completeLevel b ((1 + treeHeight b)-1))
+->completeLevel (U a b) (1 + treeHeight b) = B (completeLevel b (treeHeight b)) (a) (completeLevel b (treeHeight b))
+
+treeHeight(B (completeLevel b (treeHeight b)) (a) (completeLevel b (treeHeight b))) = treeHeight U a b
+
+->treeHeight (B j k i) = 1 + max (treeHeight j) (treeHeight i)
+->treeHeight(B (completeLevel b (treeHeight b)) (a) (completeLevel b (treeHeight b))) = 1 + max treeHeight(completeLevel b (treeHeight b)) treeHeight(completeLevel b (treeHeight b))
+
+-> max x x = x
+
+->1 + max treeHeight(completeLevel b (treeHeight b)) treeHeight(completeLevel b (treeHeight b)) = 1 + treeHeight(completeLevel b (treeHeight b))
+
+1 + treeHeight(completeLevel b (treeHeight b)) = treeHeight U a b
+
+por t2-
+
+1 + treeHeight b = treeHeight U a b
+
+->treeHeight (U a b) = 1 + treeHeight (b)
+
+1 + treeHeight b = 1 + treeHeight b
+
+Caso inductivo 2
+
+h1- (∀a::Tree) treeHeight(completeLevel a (treeHeight a)) = treeHeight a
+h2- (∀c::Tree) treeHeight(completeLevel c (treeHeight c)) = treeHeight c
+
+t- (∀t::Tree) treeHeight(completeLevel (B a b c) (treeHeight (B a b c))) = treeHeight (B a b c)
+
+
+-> treeHeight (B a b c) = 1 + max (treeHeight a) (treeHeight c)
+
+treeHeight(completeLevel (B a b c) (1 + max (treeHeight a) (treeHeight c))) = 1 + max (treeHeight a) (treeHeight c)
+
+-> completeLevel (B a b c) (1 + max (treeHeight a) (treeHeight c)) = B (completeLevel a ((1 + max (treeHeight a) (treeHeight c))-1)) b (completeLevel c ((1 + max (treeHeight a) (treeHeight c))-1))
+-> completeLevel (B a b c) (1 + max (treeHeight a) (treeHeight c)) = B (completeLevel a (max (treeHeight a) (treeHeight c))) b (completeLevel c (max (treeHeight a) (treeHeight c)))
+
+
+treeHeight(B (completeLevel a (max (treeHeight a) (treeHeight c))) b (completeLevel c (max (treeHeight a) (treeHeight c)))) = treeHeight (1 + max (treeHeight a) (treeHeight c))
+
+Caso1 -> treeHeight a >= treeHeight c
+
+treeHeight(B (completeLevel a (treeHeight a)) b (completeLevel c (treeHeight a))) = treeHeight (1 + treeHeight a)
+
+1 + max (treeHeight(completeLevel a (treeHeight a))) (treeHeight(completeLevel c (treeHeight a)))
+
+-> h1
+
+
+1 + max (treeHeight a) (treeHeight(completeLevel c (treeHeight a))) = 1 + treeHeight a
+
+En nuestro caso se cumple "treeHeight a >= treeHeight c", por lo tanto "completeLevel c (treeHeight a)" va a resultar en un arbol diferente a "c" 
+que va a llenar sus espacios hasta tener la altura de "a". Entonces la altura de ese nuevo arbol va a tner la misma altura que "a", por
+lo que podemos afirmar lo siguiente:
+
+->treeHeight a == treeHeight(completeLevel c (treeHeight a))
+-> max x x = x
+
+1 + treeHeight a = 1 + treeHeight a
+
+Caso 2 -> treeHeight a < treeHeight c
+
+treeHeight(B (completeLevel a (max (treeHeight a) (treeHeight c))) b (completeLevel c (max (treeHeight a) (treeHeight c)))) = treeHeight (1 + max (treeHeight a) (treeHeight c))
+
+
+1 + max (treeHeight((completeLevel a (max (treeHeight a) (treeHeight c))))) (treeHeight((completeLevel c (max (treeHeight a) (treeHeight c))))) = 1 + max (treeHeight a) (treeHeight c)
+
+
+Por caso 2 -> max (treeHeight a) (treeHeight c) = treeHeight c
+
+1 + max (treeHeight(completeLevel a (treeHeight c))) (treeHeight(completeLevel c (treeHeight c))) = 1 + treeHeight c
+
+Por h2 -> treeHeight(completeLevel c (treeHeight c)) = treeHeight c
+
+1 + max (treeHeight(completeLevel a (treeHeight c))) (treeHeight c) = 1 + treeHeight c
+
+En nuestro caso se cumple "treeHeight a < treeHeight c", por lo tanto "completeLevel a (treeHeight c)" va a resultar en un arbol diferente a "a" 
+que va a llenar sus espacios hasta tener la altura de "c". Entonces la altura de ese nuevo arbol va a tner la misma altura que "c", por
+lo que podemos afirmar lo siguiente:
+
+->treeHeight c == treeHeight(completeLevel a (treeHeight c))
+-> max x x = x
+
+1 + treeHeight c = 1 + treeHeight c
+
 
 --}
